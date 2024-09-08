@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flower Classification</h1>
+    </header>
+
+    <div class="container">
+        <h2>Welcome to the Flower Classification Application</h2>
+        <p>Upload an image of a flower, and our machine learning model will predict the type of flower!</p>
+        <p>(Types: 'rose', 'daisy', 'dandelion', 'sunflower', 'tulip')</p>
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Upload and Classify</button>
+        </form>
+
+        {% if img_data %}
+        <h2>Uploaded Image</h2>
+        <img src="data:image/png;base64,{{ img_data }}" alt="Uploaded Image">
+        <div class="prediction">
+            Prediction: {{ prediction }}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flower Classification App. All rights reserved.</p>
+        <p>FREEDOM GROUP</p>
+    </footer>
+</body>
+</html>
