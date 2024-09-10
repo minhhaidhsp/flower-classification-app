@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # Tạo lại train_generator để lấy thông tin về class_indices
 train_datagen = ImageDataGenerator(rescale=1./255)
-train_generator = train_datagen.flow_from_directory('dataset/flowers/train', target_size=(224, 224), batch_size=32, class_mode='categorical')
+train_generator = train_datagen.flow_from_directory('dataset/train', target_size=(224, 224), batch_size=32, class_mode='categorical')
 
 # Tải mô hình đã huấn luyện
 model = load_model('flower_classification_model.h5')
@@ -66,4 +66,4 @@ def index():
     return render_template('index.html', img_data=None, prediction=None)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5000, host='0.0.0.0')
