@@ -1,0 +1,8 @@
+dataset/
+.git
+.gitignore
+*.pyc
+__pycache__
+*.h5
+*.h5py
+docker-compose.yml

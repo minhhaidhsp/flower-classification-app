@@ -9,3 +9,6 @@ obj/
 # Bỏ qua thư mục môi trường ảo
 .venv/
 dataset/
+
+*.h5
+*.h5py
