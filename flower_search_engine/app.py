@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the model
-model_path = 'models/search_image_engine_model.keras'
+model_path = 'flower_search_engine/models/search_image_engine_model.keras'
 model = load_model(model_path)
 
 # Folder paths
