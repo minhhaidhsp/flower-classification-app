@@ -1,0 +1,260 @@
+/* Tổng thể */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header banner */
+.banner-header {
+    position: relative;
+    text-align: center;
+    color: white; /* Màu chữ để tương phản với hình ảnh */
+}
+
+.banner {
+    width: 100%;
+    height: 33vh; /* Chiều cao 1/3 của viewport height */
+    object-fit: cover; /* Cắt hình ảnh để giữ tỷ lệ */
+    display: block;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.banner-text h1, .banner-text p {
+    margin: 0;
+    padding: 0;
+}
+
+.title-banner {
+    font-size: 3rem;
+    color: darkseagreen;
+  }
+
+/* Các phần tử khác */
+.container {
+    padding: 20px;
+}
+
+.search-section, .upload-section {
+    margin: 20px 0;
+}
+
+input[type="text"], input[type="file"], button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #004080;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive cho header và văn bản */
+@media (max-width: 600px) {
+    .banner-text h1 {
+        font-size: 24px;
+    }
+    .banner-text p {
+        font-size: 16px;
+    }
+}
+
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.search-section, .upload-section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 45%;
+}
+
+/* Form Search */
+#search-form input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#search-form button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#results {
+    margin-top: 20px;
+}
+
+/* Form Upload */
+#upload-form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+#upload-info {
+    color: #8a2be2;
+    font-weight: bold;
+}
+
+#upload-form button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#upload-info {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #004080;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Grid display cho kết quả */
+/* Grid display cho kết quả */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Đặt kích thước tối thiểu cho mỗi ô ảnh */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.image-item {
+    display: flex;
+    justify-content: center; /* Căn giữa ảnh trong ô */
+    align-items: center;
+    overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài hình vuông */
+    width: 100px; /* Chiều rộng hình vuông */
+    height: 100px; /* Chiều cao hình vuông */
+}
+
+.flower-image {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của .image-item */
+    height: 100%; /* Chiếm toàn bộ chiều cao của .image-item */
+    object-fit: cover; /* Cắt ảnh để giữ tỷ lệ và lấp đầy ô vuông */
+    border-radius: 5px; /* Độ bo tròn cạnh của ảnh */
+}
+
+
+/* Thanh phân trang nằm ngang */
+.pagination-container {
+    margin-top: 20px; /* Khoảng cách giữa kết quả và thanh phân trang */
+    padding: 10px 0; /* Khoảng cách trên và dưới của thanh phân trang */
+    display: flex;
+    justify-content: center; /* Căn giữa thanh phân trang */
+    width: 100%; /* Đảm bảo thanh phân trang chiếm toàn bộ chiều rộng */
+}
+
+.pagination {
+    display: inline-flex;
+    gap: 5px; /* Khoảng cách giữa các nút */
+    flex-wrap: nowrap; /* Đảm bảo các nút không bị xuống hàng */
+}
+
+/* .pagination button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #004080;
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 35px;
+    height: 35px;
+    transition: background-color 0.3s ease;
+} */
+
+.pagination button {
+    /* margin: 0 5px; */
+    padding: 8px 12px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #f39c12;
+    font-weight: bold;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive cho thanh phân trang */
+@media (max-width: 600px) {
+    .pagination button {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 30px;
+        height: 30px;
+    }
+}
+
+
+
+#uploaded-image-preview {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.uploaded-preview-image {
+    width: 100px; /* Kích thước chiều rộng của ảnh */
+    height: 100px; /* Kích thước chiều cao của ảnh */
+    object-fit: cover; /* Đảm bảo ảnh được cắt đúng tỷ lệ và lấp đầy khung */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+
