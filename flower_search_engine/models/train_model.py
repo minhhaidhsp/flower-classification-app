@@ -8,9 +8,9 @@ from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 # Đường dẫn dữ liệu
-train_dir = 'flower_search_engine/static/dataset/flowers/train'
-test_dir = 'flower_search_engine/static/dataset/flowers/test'
-model_save_path = 'flower_search_engine/models/search_image_engine_model.keras'
+train_dir = 'dataset/train'
+test_dir = 'dataset/test'
+model_save_path = 'search_image_engine_model.keras'
 
 # Kiểm tra sự tồn tại của thư mục dữ liệu
 if not os.path.exists(train_dir):

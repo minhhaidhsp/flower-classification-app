@@ -4,24 +4,27 @@ from werkzeug.utils import secure_filename
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
 from PIL import Image
+import shutil
 
 import numpy as np
 import os
 import time
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_folder='static',
+            template_folder='templates')
 CORS(app)
 
 # Load the model
-model_path = 'flower_search_engine/models/search_image_engine_model.keras'
+model_path = 'search_image_engine_model.keras'
 model = load_model(model_path)
 
 # Folder paths
-UPLOAD_FOLDER = 'flower_search_engine/uploads'
+UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # train dir
-train_dir = 'flower_search_engine/static/dataset/flowers/train'
+train_dir = 'dataset/train'
 
 # Function to process the image
 def process_image(image_path):
@@ -44,7 +47,7 @@ def search():
     # Kiểm tra nếu thư mục phân lớp tồn tại
     if os.path.exists(absolute_path):
         # Lấy tất cả các ảnh trong thư mục phân lớp đó và thay thế gạch ngược bằng gạch chéo
-        images = [os.path.join('dataset/flowers/train', keyword, img).replace('\\', '/') for img in os.listdir(absolute_path) if img.endswith(('.jpg', '.png'))]
+        images = [os.path.join('dataset/train', keyword, img).replace('\\', '/') for img in os.listdir(absolute_path) if img.endswith(('.jpg', '.png'))]
     else:
         # Nếu không tìm thấy phân lớp
         images = []
@@ -79,7 +82,7 @@ def search():
         predicted_label = class_labels[predicted_class]
 
         # Thêm ảnh vào tập dữ liệu tương ứng với lớp dự đoán
-        destination_dir = os.path.join('flower_search_engine/static/dataset/flowers/train', predicted_label).replace('\\', '/') 
+        destination_dir = os.path.join('dataset/train', predicted_label).replace('\\', '/') 
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
         
@@ -92,7 +95,7 @@ def search():
             # Thêm timestamp để tạo tên tệp mới duy nhất
             new_file_path = os.path.join(destination_dir, f"{base_name}_{int(time.time())}{ext}").replace('\\', '/') 
         
-        os.rename(file_path, new_file_path)
+        shutil.move(file_path, new_file_path)
 
         # Cập nhật mô hình bằng học tăng cường
         train_new_image(new_file_path, predicted_label)
@@ -128,7 +131,7 @@ def upload():
         predicted_label = class_labels[predicted_class]
 
         # Thêm ảnh vào tập dữ liệu tương ứng với lớp dự đoán
-        destination_dir = os.path.join('flower_search_engine/static/dataset/flowers/train', predicted_label).replace('\\', '/') 
+        destination_dir = os.path.join('dataset/train', predicted_label).replace('\\', '/') 
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
         
@@ -141,7 +144,7 @@ def upload():
             # Thêm timestamp để tạo tên tệp mới duy nhất
             new_file_path = os.path.join(destination_dir, f"{base_name}_{int(time.time())}{ext}").replace('\\', '/') 
         
-        os.rename(file_path, new_file_path)
+        shutil.move(file_path, new_file_path)
 
         # Cập nhật mô hình bằng học tăng cường
         train_new_image(new_file_path, predicted_label)
@@ -152,13 +155,13 @@ def upload():
         absolute_path = os.path.abspath(class_dir)
         
         if os.path.exists(absolute_path):
-            images = [os.path.join('dataset/flowers/train', predicted_label, img).replace('\\', '/') 
+            images = [os.path.join('dataset/train', predicted_label, img).replace('\\', '/') 
                       for img in os.listdir(absolute_path) if img.endswith(('.jpg', '.png'))]
 
         # Trả về kết quả tìm kiếm dưới dạng JSON
         return jsonify({
             'message': f'Prediction: {predicted_label}',
-            'uploaded_image': f'{os.path.join('dataset/flowers/train', predicted_label, filename).replace('\\', '/')}',
+            'uploaded_image': os.path.join('dataset/train', predicted_label, filename).replace('\\', '/'),
             'images': images
         }), 200
 
@@ -168,7 +171,7 @@ def train_new_image(image_path, label):
     Hàm tái huấn luyện mô hình với ảnh mới.
     """
     # Định nghĩa đường dẫn tới thư mục huấn luyện
-    train_dir = 'flower_search_engine/static/dataset/flowers/train'
+    train_dir = 'dataset/train'
 
     # Tạo ImageDataGenerator để lấy thông tin nhãn
     datagen = ImageDataGenerator(rescale=1./255)
@@ -205,4 +208,4 @@ def train_new_image(image_path, label):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, host='0.0.0.0')
