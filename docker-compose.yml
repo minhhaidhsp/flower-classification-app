@@ -1,23 +1,44 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
-  flask:
+  classification:
     build:
-      context: .
+      context: ./flower_classification
     volumes:
       - ./dataset:/app/dataset
-      - ./flower_classification_model.h5:/app/flower_classification_model.h5
+      - ./models/flower_classification_model.h5:/app/flower_classification_model.h5
     expose:
-      - "5000:5000"
+      - "5000"
     environment:
       FLASK_ENV: development
+    command: ["python", "app.py"]
+
+  search-engine:
+    build:
+      context: ./flower_search_engine
+    volumes:
+      - ./dataset:/app/dataset
+      - ./models/search_image_engine_model.keras:/app/search_image_engine_model.keras
+      - ./flower_search_engine/static:/app/static
+    expose:
+      - "5001"
+    environment:
+      FLASK_ENV: development
+    command: ["python", "app.py"]
 
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./dataset:/app/static/dataset
+      - ./flower_search_engine/static:/app/static  # Mount static files to Nginx
+
     ports:
       - "80:80"
+      - "81:81"
     depends_on:
-      - flask
+      - classification
+      - search-engine
+
+volumes:
+  shared-volume:
