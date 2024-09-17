@@ -1,14 +1,9 @@
-# Bỏ qua thư mục bin và obj
 bin/
 obj/
-
-# Bỏ qua các tập tin tạm thời
 *.tmp
 *.log
-
-# Bỏ qua thư mục môi trường ảo
 .venv/
 dataset/
-
 *.h5
 *.h5py
+models/
