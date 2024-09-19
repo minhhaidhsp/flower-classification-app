@@ -16,7 +16,7 @@ app = Flask(__name__,
 CORS(app)
 
 # Load the model
-model_path = 'search_image_engine_model.keras'
+model_path = 'models/search_image_engine_model.keras'
 model = load_model(model_path)
 
 # Folder paths
@@ -82,7 +82,7 @@ def search():
         predicted_label = class_labels[predicted_class]
 
         # Thêm ảnh vào tập dữ liệu tương ứng với lớp dự đoán
-        destination_dir = os.path.join('dataset/train', predicted_label).replace('\\', '/') 
+        destination_dir = os.path.join('static/dataset/train', predicted_label).replace('\\', '/') 
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
         
@@ -131,7 +131,7 @@ def upload():
         predicted_label = class_labels[predicted_class]
 
         # Thêm ảnh vào tập dữ liệu tương ứng với lớp dự đoán
-        destination_dir = os.path.join('dataset/train', predicted_label).replace('\\', '/') 
+        destination_dir = os.path.join('static/dataset/train', predicted_label).replace('\\', '/') 
         if not os.path.exists(destination_dir):
             os.makedirs(destination_dir)
         
@@ -171,7 +171,7 @@ def train_new_image(image_path, label):
     Hàm tái huấn luyện mô hình với ảnh mới.
     """
     # Định nghĩa đường dẫn tới thư mục huấn luyện
-    train_dir = 'dataset/train'
+    train_dir = 'static/dataset/train'
 
     # Tạo ImageDataGenerator để lấy thông tin nhãn
     datagen = ImageDataGenerator(rescale=1./255)

@@ -18,8 +18,9 @@ services:
       context: ./flower_search_engine
     volumes:
       - ./dataset:/app/dataset
-      - ./models/search_image_engine_model.keras:/app/search_image_engine_model.keras
+      - ./models/search_image_engine_model.keras:/app/models/search_image_engine_model.keras
       - ./flower_search_engine/static:/app/static
+      - ./dataset:/app/static/dataset
     expose:
       - "5001"
     environment:
@@ -30,8 +31,6 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./dataset:/app/static/dataset
-      - ./flower_search_engine/static:/app/static  # Mount static files to Nginx
 
     ports:
       - "80:80"
